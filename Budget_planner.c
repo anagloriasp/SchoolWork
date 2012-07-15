@@ -30,7 +30,9 @@
 void get_expenses(double *p_School, double *p_Living, double *p_Trans, double *p_Other);
 void get_income(double *p_Employ, double *p_Other);
 void report(double School, double Living, double Trans, double OtherExp, double Employ, double OtherInc);
-void get_double();
+double get_double(void);
+char get_char(void);
+void clear_buffer(void);
 
 
 void main ()
@@ -41,66 +43,65 @@ void main ()
     printf("Student Budget Planner\n~~~~~~~~~~~~~~~~~~~~~~\n");
 
     get_expenses(&school, &living, &transp, &otherExp);
-    get_income(&employ, &otherInc);
-    report(school, living, transp, otherExp, employ, otherInc);
+    //get_income(&employ, &otherInc);
+    //report(school, living, transp, otherExp, employ, otherInc);
     return;
 }
 
 //functions
 void get_expenses(double *p_School, double *p_Living, double *p_Trans, double *p_Other)
 {
-    *p_School = *p_Living = 0;
-    *p_Trans = *p_Other = 0;
+    *p_School = *p_Living = *p_Trans = *p_Other = 0;
 
-    printf("School Expenses:\n"
-           "~~~~~~~~~~~~~~~~\n");
+    printf("School Expenses:\n~~~~~~~~~~~~~~~~\n");
     printf("Tuition (per semester):");
     *p_School += get_double();
+    printf("Textbooks (per semester):");
+    *p_School += get_double();
+    printf("Supplies:");
+    *p_School += get_double();
+
+    printf("Living Expenses\n~~~~~~~~~~~~~~~\n");
+    printf("Residence/Rent/Mortgage:");
+    *p_Living += get_double();
+    printf("Utilities:");
+    *p_Living += get_double();
+    printf("Phone/Internet:");
+    *p_Living += get_double();
+    printf("Groceries/Eating Out:");
+    *p_Living += get_double();
+    printf("Entertainment:");
+    *p_Living += get_double();
+
 }
 
-void get_double() {
-    int  valid_input, temp;
+
+
+
+
+
+
+//validation
+double get_double(void) {
+    int  valid_input = 1, temp;
     double num;
-    char next;
+    char letter;
 
-while (valid_input == 0) {
+do {
+	temp = scanf("%lf%c",&num, &letter);
 
-	valid = scanf("lf%c",&num, &enter)
-	if (temp
-
-	printf("Error!\nPlease enter a positive number:");
-	clear_buffer();
+	if (temp == 0) {
+		printf("Only postive numbers are allowed.\nPlease re-enter:");
+		clear_buffer();
+	} else if (letter != '\n') {
+		printf("Only postive numbers are allowed.\nPlease re-enter:");
+		clear_buffer();
+	} else
+		valid_input = 0;
+	} while (valid_input == 1);
 	return num;
 }
 
-/*double get_double(void) {
-
- int keeptrying = 1, rc;
-     double value;
-     char after;
-
-do {
-        rc = scanf("%lf%c", &value, &after);
-
-          if (rc == 0)
-          {
-
-             printf("Invalid Input\n\n");
-             clear_buffer();
-
-         } else if (after != '\n') {
-
-             printf("Invalid Input\n\n");
-             clear_buffer();
-         } else
-
-             keeptrying = 0;
-
-     } while (keeptrying == 1);
-
-     return value;
-}*/
- /* clear the input buffer of characters */
  void clear_buffer(void) {
 
      while ( getchar() != '\n' ) ;  /* null statement intentional */
