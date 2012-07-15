@@ -27,31 +27,32 @@
 
 
 //function prototypes
-void get_expenses(double *p_School, double *p_Living, double *p_Trans, double *p_Other);
-void get_income(double *p_Employ, double *p_Other);
-void report(double School, double Living, double Trans, double OtherExp, double Employ, double OtherInc);
+void get_expenses(double *p_School, double *p_Living, double *p_Trans, double *p_OtherExp);
+void get_income(double *p_Employ, double *p_OtherInc);
+void display_report(double school, double living, double trans, double otherExp, double employ, double otherInc);
 double get_double(void);
 char get_char(void);
 void clear_buffer(void);
 
-
-void main ()
-{
-    double school, living, transp, otherExp;
+main () {
+    double school, living, trans, otherExp;
     double employ, otherInc;
+    int input_set = 0;
+
 
     printf("Student Budget Planner\n~~~~~~~~~~~~~~~~~~~~~~\n");
 
-    get_expenses(&school, &living, &transp, &otherExp);
+    get_expenses(&school, &living, &trans, &otherExp);
     //get_income(&employ, &otherInc);
-    //report(school, living, transp, otherExp, employ, otherInc);
+    display_report(school, living, trans, otherExp, employ, otherInc);
+    printf("\nSchool total: %.2lf", school/4);
     return;
 }
 
 //functions
-void get_expenses(double *p_School, double *p_Living, double *p_Trans, double *p_Other)
+void get_expenses(double *p_School, double *p_Living, double *p_Trans, double *p_OtherExp)
 {
-    *p_School = *p_Living = *p_Trans = *p_Other = 0;
+    *p_School = *p_Living = *p_Trans = *p_OtherExp = 0;
 
     printf("School Expenses:\n~~~~~~~~~~~~~~~~\n");
     printf("Tuition (per semester):");
@@ -59,9 +60,11 @@ void get_expenses(double *p_School, double *p_Living, double *p_Trans, double *p
     printf("Textbooks (per semester):");
     *p_School += get_double();
     printf("Supplies:");
-    *p_School += get_double();
+    *p_School += get_double() * 4;
+    *p_School = *p_School/4;
 
-    printf("Living Expenses\n~~~~~~~~~~~~~~~\n");
+
+    printf("\n\nLiving Expenses\n~~~~~~~~~~~~~~~\n");
     printf("Residence/Rent/Mortgage:");
     *p_Living += get_double();
     printf("Utilities:");
@@ -73,7 +76,7 @@ void get_expenses(double *p_School, double *p_Living, double *p_Trans, double *p
     printf("Entertainment:");
     *p_Living += get_double();
 
-    printf("Transportation\n~~~~~~~~~~~~~~\n");
+    printf("\n\nTransportation\n~~~~~~~~~~~~~~\n");
     printf("Public Transportation:");
     *p_Trans += get_double();
     printf("Car:");
@@ -83,28 +86,40 @@ void get_expenses(double *p_School, double *p_Living, double *p_Trans, double *p
     printf("Gas/Maintence:");
     *p_Trans += get_double();
 
-    printf("Other\n~~~~~\n");
-    printf("Any other expenses:")
-    *p_Other += get_double();
+    printf("\n\nOther\n~~~~~\n");
+    printf("Any other expenses:");
+    *p_OtherExp += get_double();
+
 }
 
-void get_income(double *p_Employ, double *p_Other) {
-	*p_Employ = *p_Other = 0;
+void get_income(double *p_Employ, double *p_OtherInc) {
+	*p_Employ = *p_OtherInc = 0;
 
 	printf("Employment Income\n~~~~~~~~~~~~~~~~~\n");
 	printf("Expected Wages/Tips:");
 	*p_Employ += get_double();
 
-	printf("Other Income\n~~~~~~~~~~~\n");
+	printf("\n\nOther Income\n~~~~~~~~~~~\n");
 	printf("Family Support:");
-	*p_Other += get_double();
+	*p_OtherInc += get_double();
 	printf("Scholarship/Bursaries (per semester):");
-	*p_Other += get_double();
+	*p_OtherInc += get_double();
 	printf("Other:");
-	*p_Other += get_double();
+	*p_OtherInc += get_double();
 
 
+}
 
+
+//report
+void display_report(double school, double living, double trans, double otherExp, double employ, double otherInc)
+{
+	printf("Student Budget Report\n");
+	printf("~~~~~~~~~~~~~~~~~~~~~\n");
+	printf("%25c MONTHLY %5c Annually\n", ' ', ' ');
+	printf ("School Expenses: %13c%.2lf", school);
+	return;
+}
 
 
 //validation
@@ -116,26 +131,26 @@ double get_double(void) {
 do {
 	temp = scanf("%lf%c",&num, &letter);
 
-	if (temp == 0 || letter != '\n') { \\CHANGED
-		clear_buffer(); \\CHANGED
-		printf("Error! Please enter a number:"); \\CHANGED
-	} else if (num < 0) { \\CHANGED
-		printf("Only postive numbers are allowed.\nPlease re-enter:"); \\CHANGED
+	if (temp == 0 || letter != '\n') {
+		clear_buffer();
+		printf("Error! Please enter a number:");
+	} else if (num < 0) {
+		printf("Only postive numbers are allowed.\nPlease re-enter:");
 	} else
 		valid_input = 0;
 	} while (valid_input == 1);
 	return num;
 }
 
-\\CHANGED
+
 char get_char(){
     char letter1, letter2;
-     
-scanf("%c%c", &letter1, letter2);
-while ( (letter1 != 'y' && letter1 != 'n' && letter1 != 'Y' && letter1 != 'N' ) || letter2 != '\n') {
-    clear_buffer();
-    printf("Error!! Please enter Y to recalculate or N to not recalculate: ");
-    scanf("%c%c", &letter1, letter2);
+
+	scanf("%c%c", &letter1, letter2);
+	while ( (letter1 != 'y' && letter1 != 'n' && letter1 != 'Y' && letter1 != 'N' ) || letter2 != '\n') {
+		clear_buffer();
+		printf("Error!! Please enter Y to recalculate or N to not recalculate: ");
+		scanf("%c%c", &letter1, letter2);
     }
     return letter1;
 }
