@@ -73,9 +73,35 @@ void get_expenses(double *p_School, double *p_Living, double *p_Trans, double *p
     printf("Entertainment:");
     *p_Living += get_double();
 
+    printf("Transportation\n~~~~~~~~~~~~~~\n");
+    printf("Public Transportation:");
+    *p_Trans += get_double();
+    printf("Car:");
+    *p_Trans += get_double();
+    printf("Auto Insurance:");
+    *p_Trans += get_double();
+    printf("Gas/Maintence:");
+    *p_Trans += get_double();
+
+    printf("Other\n~~~~~\n");
+    printf("Any other expenses:")
+    *p_Other += get_double();
 }
 
+void get_income(double *p_Employ, double *p_Other) {
+	*p_Employ = *p_Other = 0;
 
+	printf("Employment Income\n~~~~~~~~~~~~~~~~~\n");
+	printf("Expected Wages/Tips:");
+	*p_Employ += get_double();
+
+	printf("Other Income\n~~~~~~~~~~~\n");
+	printf("Family Support:");
+	*p_Other += get_double();
+	printf("Scholarship/Bursaries (per semester):");
+	*p_Other += get_double();
+	printf("Other:");
+	*p_Other += get_double();
 
 
 
