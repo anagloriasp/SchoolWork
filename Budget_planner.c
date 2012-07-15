@@ -116,17 +116,30 @@ double get_double(void) {
 do {
 	temp = scanf("%lf%c",&num, &letter);
 
-	if (temp == 0) {
-		printf("Only postive numbers are allowed.\nPlease re-enter:");
-		clear_buffer();
-	} else if (letter != '\n') {
-		printf("Only postive numbers are allowed.\nPlease re-enter:");
-		clear_buffer();
+	if (temp == 0 || letter != '\n') { \\CHANGED
+		clear_buffer(); \\CHANGED
+		printf("Error! Please enter a number:"); \\CHANGED
+	} else if (num < 0) { \\CHANGED
+		printf("Only postive numbers are allowed.\nPlease re-enter:"); \\CHANGED
 	} else
 		valid_input = 0;
 	} while (valid_input == 1);
 	return num;
 }
+
+\\CHANGED
+char get_char(){
+    char letter1, letter2;
+     
+scanf("%c%c", &letter1, letter2);
+while ( (letter1 != 'y' && letter1 != 'n' && letter1 != 'Y' && letter1 != 'N' ) || letter2 != '\n') {
+    clear_buffer();
+    printf("Error!! Please enter Y to recalculate or N to not recalculate: ");
+    scanf("%c%c", &letter1, letter2);
+    }
+    return letter1;
+}
+
 
  void clear_buffer(void) {
 
