@@ -56,13 +56,11 @@ void get_expenses(double *p_School, double *p_Living, double *p_Trans, double *p
 
     printf("School Expenses:\n~~~~~~~~~~~~~~~~\n");
     printf("Tuition (per semester):");
-    *p_School += get_double();
+    *p_School += get_double()/4;
     printf("Textbooks (per semester):");
-    *p_School += get_double();
+    *p_School += get_double()/4;
     printf("Supplies:");
-    *p_School += get_double() * 4;
-    *p_School = *p_School/4;
-
+    *p_School += get_double();
 
     printf("\n\nLiving Expenses\n~~~~~~~~~~~~~~~\n");
     printf("Residence/Rent/Mortgage:");
@@ -103,7 +101,7 @@ void get_income(double *p_Employ, double *p_OtherInc) {
 	printf("Family Support:");
 	*p_OtherInc += get_double();
 	printf("Scholarship/Bursaries (per semester):");
-	*p_OtherInc += get_double();
+	*p_OtherInc += get_double()/4;
 	printf("Other:");
 	*p_OtherInc += get_double();
 
@@ -117,7 +115,7 @@ void display_report(double school, double living, double trans, double otherExp,
 	printf("Student Budget Report\n");
 	printf("~~~~~~~~~~~~~~~~~~~~~\n");
 	printf("%25c MONTHLY %5c Annually\n", ' ', ' ');
-	printf ("School Expenses: %13c%.2lf", school);
+	printf ("School Expenses: %13c%.2lf", ' ', school);
 	return;
 }
 
